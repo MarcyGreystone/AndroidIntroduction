@@ -62,7 +62,8 @@ public class SecondActivity extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_jump:
-                finish();
+                startActivity(new Intent(this , MainActivity.class));
+//                finish();
                 break;
         }
     }

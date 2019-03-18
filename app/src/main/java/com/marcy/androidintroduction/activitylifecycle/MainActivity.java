@@ -2,6 +2,7 @@ package com.marcy.androidintroduction.activitylifecycle;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.marcy.androidintroduction.R;
@@ -19,6 +21,7 @@ import com.marcy.androidintroduction.R;
 public class MainActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
     private MainFragment mFragment;
+    private EditText mEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mEt = findViewById(R.id.et_input);
+
+        if(savedInstanceState != null){
+            String test = savedInstanceState.getString("extra_test");
+            Log.d(TAG, TAG + "-->onCreate: restore extra_test" + test);
+        }
 //        mFragment = new MainFragment();
 //        FragmentManager manager = getSupportFragmentManager();
 //        FragmentTransaction transaction = manager.beginTransaction();
@@ -91,18 +100,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         Log.d(TAG, TAG + "-->onSaveInstanceState: ");
         super.onSaveInstanceState(outState);
+        outState.putString("extra_test","测试数据");
+        Parcelable test  = mEt.onSaveInstanceState();
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Log.d(TAG, TAG + "-->onRestoreInstanceState: ");
         super.onRestoreInstanceState(savedInstanceState);
+        String test = savedInstanceState.getString("extra_test");
+        Log.d(TAG, TAG + "-->onRestoreInstanceState: " + test);
     }
 
     public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_jump:
-                startActivity(new Intent(this , SecondActivity.class));
+                startActivity(new Intent(this , MainActivity.class));
 //                finish();
                 break;
             case R.id.bt_dialog:
