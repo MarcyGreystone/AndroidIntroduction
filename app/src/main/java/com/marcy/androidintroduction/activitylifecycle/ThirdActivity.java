@@ -10,9 +10,9 @@ import android.view.View;
 import com.marcy.androidintroduction.R;
 
 /**
- * Created by Marcy on 2019/3/18
+ * Created by Marcy on 2019/3/19
  */
-public class SecondActivity extends AppCompatActivity {
+public class ThirdActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
 
     @Override
@@ -62,8 +62,8 @@ public class SecondActivity extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_jump:
-                getApplicationContext().startActivity(new Intent(getApplicationContext() , ThirdActivity.class));
-//                startActivity(new Intent(this , ThirdActivity.class));
+//                getApplicationContext().startActivity(new Intent(getApplicationContext() , SecondActivity.class));
+                startActivity(new Intent(this , SecondActivity.class));
 //                finish();
                 break;
         }

@@ -10,14 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activitylifecycle.MainActivity"
-            android:launchMode="standard">
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitylifecycle.SecondActivity"/>
+        <activity android:name=".activitylifecycle.SecondActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activitylifecycle.ThirdActivity"
+            android:taskAffinity="com.testsingletask.stack"/>
     </application>
 
 </manifest>
