@@ -19,6 +19,7 @@ public class ThirdActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        stopService(new Intent(this , FirstService.class));
         Log.d(TAG, TAG + "-->onCreate: ");
     }
 

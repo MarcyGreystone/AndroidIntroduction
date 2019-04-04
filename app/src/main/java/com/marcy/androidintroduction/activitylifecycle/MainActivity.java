@@ -1,7 +1,11 @@
 package com.marcy.androidintroduction.activitylifecycle;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
     private MainFragment mFragment;
     private EditText mEt;
+    private ServiceConnection mServiceConnection;
+    private FirstService.TestFirstBinder mTestFirstBinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
             String test = savedInstanceState.getString("extra_test");
             Log.d(TAG, TAG + "-->onCreate: restore extra_test" + test);
         }
+        startServiceByAction();
+//        bindServiceForTest();
+//        startServiceForTest();
 //        mFragment = new MainFragment();
 //        FragmentManager manager = getSupportFragmentManager();
 //        FragmentTransaction transaction = manager.beginTransaction();
@@ -123,6 +132,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void startServiceByAction(){
+        //若不采用该方式隐式启动service，则会报Service Intent must be explicit异常。 这是Android 5.0 (Lollipop) 之后的规定
+        Intent intent = new Intent();
+        intent.setAction("com.example.firstservice");
+        intent.setPackage(getPackageName());    //兼容Android 5.0
+        startService(intent);
+    }
+
+    private void startServiceForTest(){
+        startService(new Intent(this , FirstService.class));
+    }
+
+    private void bindServiceForTest(){
+        mServiceConnection = new TestServiceConnection();
+        bindService(new Intent(this , FirstService.class) , mServiceConnection ,   Context.BIND_AUTO_CREATE);
+    }
+
     private void showDialog(){
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("测试acitivity生命周期");
@@ -131,14 +157,30 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 startActivity(new Intent(MainActivity.this , SecondActivity.class));
+                finish();
             }
         });
         dialog.setNegativeButton("隐藏", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+//                unbindService(mServiceConnection);
+//                dialog.dismiss();
             }
         });
         dialog.show();
+    }
+
+    class TestServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d(TAG, TAG + "-->onServiceConnected: ");
+            mTestFirstBinder = (FirstService.TestFirstBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d(TAG, TAG + "-->onServiceDisconnected: ");
+        }
     }
 }

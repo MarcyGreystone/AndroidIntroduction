@@ -62,8 +62,8 @@ public class SecondActivity extends AppCompatActivity {
     public void onClick(View view){
         switch (view.getId()){
             case R.id.bt_jump:
-                getApplicationContext().startActivity(new Intent(getApplicationContext() , ThirdActivity.class));
-//                startActivity(new Intent(this , ThirdActivity.class));
+//                getApplicationContext().startActivity(new Intent(getApplicationContext() , ThirdActivity.class));
+                startActivity(new Intent(this , ThirdActivity.class));
 //                finish();
                 break;
         }

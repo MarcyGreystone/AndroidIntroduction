@@ -18,9 +18,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitylifecycle.SecondActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activitylifecycle.ThirdActivity"
-            android:taskAffinity="com.testsingletask.stack"/>
+            android:launchMode="singleInstance"/>
+
+        <activity android:name=".activitylifecycle.ThirdActivity"/>
+        <service android:name=".activitylifecycle.FirstService">
+            <intent-filter>
+                <action android:name="com.example.firstservice"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
