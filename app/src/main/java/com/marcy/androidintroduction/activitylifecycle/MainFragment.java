@@ -21,6 +21,7 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
+
         Log.d(TAG, TAG + "-->onAttach: ");
         super.onAttach(context);
     }

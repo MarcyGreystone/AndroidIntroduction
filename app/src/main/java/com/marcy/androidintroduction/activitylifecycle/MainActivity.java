@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
             String test = savedInstanceState.getString("extra_test");
             Log.d(TAG, TAG + "-->onCreate: restore extra_test" + test);
         }
-        startServiceByAction();
-//        bindServiceForTest();
+//        startServiceByAction();
+        bindServiceForTest();
 //        startServiceForTest();
 //        mFragment = new MainFragment();
 //        FragmentManager manager = getSupportFragmentManager();
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
     private void bindServiceForTest(){
         mServiceConnection = new TestServiceConnection();
         bindService(new Intent(this , FirstService.class) , mServiceConnection ,   Context.BIND_AUTO_CREATE);
+        mTestFirstBinder.invokeTestFirstService();
     }
 
     private void showDialog(){
