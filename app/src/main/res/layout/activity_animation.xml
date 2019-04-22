@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activitylifecycle.MainActivity">
+
+    <ImageView
+        android:id="@+id/iv_show"
+        android:layout_width="match_parent"
+        android:layout_height="224dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/bgd_ff14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bt_show_alpha_animation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="透明度动画"
+        android:onClick="showAlphaAnimation"
+        app:layout_constraintTop_toBottomOf="@id/iv_show"/>
+
+</android.support.constraint.ConstraintLayout>
